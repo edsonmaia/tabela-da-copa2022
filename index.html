@@ -10,7 +10,7 @@
 </head>
 <body>
     <!-- <span id="topo"></span> -->
-    <main class="tela-principal">
+    <main class="telaPrincipal">
     
         <header>
             <h1>Copa do Mundo Catar 2022</h1>
@@ -20,14 +20,9 @@
                     <li><a class="" onClick="renderizar(1)">1</a></li>
                     <li><a class="" onClick="renderizar(2)">2</a></li>
                     <li><a class="" onClick="renderizar(3)">3</a></li>
-                    <li><a class="" onClick="renderizarFinais('oitavas', cardsOitavas)">8s</a></li>
-                    <li><a class="" onClick="renderizarFinais('quartas', cardsQuartas)">4s</a></li>
-                    <li><a class="" onClick="renderizarFinais('semi', cardsSemi)">2s</a></li>
-                    <li><a class="" onClick="renderizarFinais('terceiro', cardsTerceiro)">3º</a></li>
-                    <li><a class="" onClick="renderizarFinais('final', cardsFinal)">1s</a></li>
+                    <li><a class="" onClick="renderizarFinais('finais', cardsRodadas)">Fase Final</a></li>
                 </ul>
             </nav>
-
         </header>
 
         <div id="divGrupo">
@@ -38,19 +33,16 @@
 
         <h2>Tabela de Jogos</h2>
 
-        <h3><span class="rodada"></span></h3>
-        
-        <!-- fase de grupos 1, 2, 3 rodada -->
-        <section class="tabela-de-jogos"></section>
+        <div id="divRodadas" class="div">
+            <h3><span class="rodada"></span></h3>
+            <!-- fase de grupos 1, 2, 3 rodada -->
+            <section class="tabelaDeJogos"></section>
+        </div>
 
-        <div id="divFinais">
-            <h2>Fases Finais</h2>
+        <div id="divFinais" class="div">
+            <h3>Fases Finais</h3>
             <!-- fases finais -->
-            <section class="tabela-de-jogos-oitavas"></section>
-            <section class="tabela-de-jogos-quartas"></section>
-            <section class="tabela-de-jogos-semi"></section>
-            <section class="tabela-de-jogos-terceiro"></section>
-            <section class="tabela-de-jogos-final"></section>    
+            <section class="tabelaDeJogosFinais"></section>
         </div>
         <!-- /preenchida pelo js  -->
 
@@ -84,7 +76,7 @@
             <!-- modelo .listaDejogosFinais -->
             <section class="listaDeJogosFinais">
                 <article class="jogo">
-                    <h3 class="fase"></h3>
+                    <h3 class="rodada"></h3>
                     <h5 class="data">Data</h5>
                     <h3 class="partida">XYZ x ZYX</h3>
                     <h5 class="estadio">Estádio</h5>
@@ -92,8 +84,8 @@
             </section>
         </div>
 
-        <div class="inferiordireita">
-            <button class="btn btn-topo" id="irTopo">&UpArrow;</button>
+        <div class="inferiorDireita">
+            <button class="btn btnTopo" id="irTopo">&UpArrow;</button>
         </div>
         
         <footer>
@@ -102,6 +94,5 @@
 
     </main>
 <script src="js/index.js"></script>
-<script src="js/jogos.js"></script>
 </body>
 </html>

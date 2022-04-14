@@ -55,3 +55,107 @@ const preencherDadosNosCards = (grupo, index) => {
 // executar verGrupos para criar os cards / section dos grupos e preencher os dados
 verGrupos()
 
+/////////////////////////// JOGOS ///////////////////////////
+let url = ''
+// requisicao dos dados json
+const listarJogos = (url) => {
+    return fetch(`jogos-${url}.json`)
+    .then( resposta => resposta.json())
+}
+
+const ocultar = (elemento) => {
+    document.querySelector(elemento).classList.add('ocultar')
+}
+
+const mostrar = (elemento) => {
+    document.querySelector(elemento).classList.remove('ocultar')
+}
+
+// cards das fase de grupos
+const criarCardJogo = () => {
+    let listaDeJogos = document.querySelector('.listaDeJogos').cloneNode(true)
+    document.querySelector('.tabelaDeJogos').append(listaDeJogos)
+    return listaDeJogos
+}
+
+const preencherCardJogos = (lista, jogo, indice) => {
+    lista[indice].querySelector('.grupo').innerHTML = `Grupo ${jogo.grupo}`
+    lista[indice].querySelector('.data').innerHTML = `${jogo.diaSemana} ${jogo.data} às ${jogo.hora}`
+    lista[indice].querySelector('.partida').innerHTML = `<img class="bandeirap" src="./images/bandeiras/${jogo.mandante}" alt="" />
+    ${jogo.partida}
+    <img class="bandeirap" src="./images/bandeiras/${jogo.visitante}" alt="" />`
+    lista[indice].querySelector('.estadio').innerHTML = `${jogo.estadio}`
+}
+
+const renderizar = (url) => {
+    mostrar('#divRodadas')
+    ocultar('#divFinais')
+    ocultar('#divGrupo')
+
+    listarJogos(url)
+    .then(dado => {
+        document.querySelector('.rodada').innerHTML = `${dado[0].rodada}ª rodada`
+        dado.map((jogo, indice) => {
+            preencherCardJogos(cardsRodadas, jogo, indice)
+        })
+    })
+}
+
+// criar cards para fase de grupo
+let numeroDeJogos = 16
+let cardsRodadas = []
+
+for(let i = 0; i < numeroDeJogos; i++ ) {
+    cardsRodadas[i] = criarCardJogo()
+}
+//console.log(cardsRodadas)
+
+const toggleGrupos = () => {
+    document.querySelector('.divGrupo').classList.add('ocultar')
+}
+
+// renderizando a nossa tela 1ª rodada
+renderizar(1)
+
+//// /RODADAS ////
+
+////////// FASES ELIMINATORIAS /////////////
+// clonar elemento e colocar no local
+const criarCard = (elemento, local) => {
+    let card = document.querySelector(elemento).cloneNode(true)
+    document.querySelector(local).append(card)
+    return card
+}
+
+const preencherCardJogosFinais = (lista, jogo, indice) => {
+    lista[indice].querySelector('.rodada').innerHTML = `${jogo.rodada}`
+    lista[indice].querySelector('.data').innerHTML = `${jogo.diaSemana} ${jogo.data} às ${jogo.hora}`
+    lista[indice].querySelector('.partida').innerHTML = `<img class="bandeirap" src="./images/bandeiras/${jogo.mandante}" alt="" />
+    ${jogo.partida}
+    <img class="bandeirap" src="./images/bandeiras/${jogo.visitante}" alt="" />`
+    lista[indice].querySelector('.estadio').innerHTML = `${jogo.estadio}`
+}
+
+// criar cards para fases finais
+let numeroDeJogosFinais = 16
+let cardsJogosFinais = []
+for(let i = 0; i < numeroDeJogosFinais; i++ ) {
+    cardsJogosFinais[i] = criarCard('.listaDeJogosFinais', '.tabelaDeJogosFinais')
+}
+//console.log(cardsJogosFinais)
+
+const renderizarFinais = (url) => {
+    mostrar('#divFinais')
+    ocultar('#divRodadas')
+    ocultar('#divGrupo')
+
+    listarJogos(url)
+    .then(dado => {
+        //document.querySelector('.rodada').innerHTML = `Fase Final`
+        dado.map((jogo, indice) => {
+            //preencherCardJogos(cardsRodadas, jogo, indice)
+            preencherCardJogosFinais(cardsJogosFinais, jogo, indice)
+        })
+    })
+}
+//renderizarFinais('oitavas')
